@@ -4,13 +4,20 @@
   "private": true,
   "scripts": {
     "start": "node ",
-    "dev": "NODE_ENV=development babel-watch ./src/bin/www"
+    "dev": "NODE_ENV=development babel-watch ./src/bin/www",
+    "buildDevDatabase": "babel-node ./src/db/buildDB.js"
   },
   "dependencies": {
+    "bcrypt": "^5.0.0",
+    "camelcase-keys": "^6.2.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
     "express": "~4.16.0",
-    "morgan": "~1.9.0"
+    "moment": "^2.27.0",
+    "morgan": "~1.9.0",
+    "pg-promise": "^10.5.7",
+    "uuid": "^8.2.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.4",
