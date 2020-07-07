@@ -8,14 +8,14 @@ export const createUser = async (req, res, next) => {
   // TO DO: SKIPPING INPUT VALIDATION - JUST PROTOTYPING!
 
   try {
-    const hashedPassword = await hashSaltPassword(password);
-    await User.create(email, hashedPassword);
+    const passwordDigest = await hashSaltPassword(password);
+    await User.create(email, passwordDigest);
     res.locals.data = {
       message:
         "Success! Please check your email and click the verification link."
     };
-  } catch (e) {
-    console.log(e);
+  } catch (err) {
+    console.log(err);
     res.locals.data = { message: "Something went wrong." };
   }
   next();

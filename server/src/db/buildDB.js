@@ -7,7 +7,7 @@ const users = `CREATE TABLE IF NOT EXISTS
       users(
         id UUID PRIMARY KEY,
         email VARCHAR(200) NOT NULL UNIQUE,
-        password_hash VARCHAR(200) NOT NULL,
+        password_digest VARCHAR(200) NOT NULL,
         email_verified BOOLEAN NOT NULL DEFAULT FALSE,
         created_at TIMESTAMP NOT NULL,
         updated_at TIMESTAMP NOT NULL

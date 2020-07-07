@@ -6,16 +6,17 @@ import db from "../../db";
 
 const create = async (email, passwordHash) => {
   const query = `INSERT INTO
-  users(id, email, password_hash, created_at, updated_at)
-  VALUES($1, $2, $3, $4, $5)
-  returning id`;
+  users(id, email, password_digest, created_at, updated_at, email_verified)
+  VALUES($1, $2, $3, $4, $5, $6)
+  returning id`; // TO DO: EMAIL VERIFICATION FLOW - REMOVE email_verified and $6
 
   const values = [
     uuidv4(),
     email,
     passwordHash,
     moment(new Date()),
-    moment(new Date())
+    moment(new Date()),
+    true // TO DO: EMAIL VERIFIFICATION FLOW
   ];
 
   try {
@@ -26,6 +27,21 @@ const create = async (email, passwordHash) => {
   }
 };
 
+const findOneByEmail = async email => {
+  const query = `
+  SELECT * FROM users WHERE email = $1
+  `;
+
+  const values = [email];
+  try {
+    const user = await db.queryReturningOne(query, values);
+    return user;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 export const User = {
-  create: create
+  create: create,
+  findOneByEmail: findOneByEmail
 };
