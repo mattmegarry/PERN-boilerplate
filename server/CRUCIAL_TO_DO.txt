@@ -1,0 +1,8 @@
+In order to push forward and allow us to get to some actual prototyping of features,
+some CRUCIAL elements of the project have been neglected. The following is a (non-exhaustive) 
+list of things that would need to be completed before even thinking releasing anything publically
+would be OK.
+
+- Server-side user input validation.
+- Email verification flow (currently new signups are just automatically validated).
+- Proper handling of errors.
