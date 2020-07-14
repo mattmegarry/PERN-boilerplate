@@ -1,13 +1,116 @@
+@import "./reset.css";
+
+/* --- TYPOGRAPHY --- */
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue",
+    Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.header {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+@media (min-width: 641px) {
+  .header {
+    font-size: 3rem;
+  }
+}
+
+.footer {
+  font-size: 0.8rem;
+}
+
+/* --- LAYOUT & BACKGROUNDS --- */
+
+html,
+body {
+  height: 100%;
+}
+
+#root {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.header,
+.main,
+.footer {
+  margin: 0 5vw 0 5vw;
+}
+
+@media (min-width: 641px) {
+  .header,
+  .main,
+  .footer {
+    margin: 0 20vw 0 20vw;
+  }
+}
+
+.header-outer {
+  height: 15vh;
+  background-color: aliceblue;
+}
+
+.main-outer {
+  display: flex;
+  flex: 1 0 auto;
+  align-items: stretch;
+  background-color: white;
+}
+
+.footer-outer {
+  height: 8vh;
+  flex-shrink: 0;
+  background-color: aliceblue;
+}
+
+.header {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.footer {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* --- COMPONENTS --- */
+
+.item {
+  border: solid 1px black;
+  border-radius: 1rem;
+  padding: 1rem 2rem 2rem 1rem;
+  background-color: aliceblue;
+  box-shadow: 0.5rem 1rem 1.8rem lightskyblue;
+}
+
+@media (min-width: 641px) {
+  .item {
+    margin: 0 10vw;
+  }
 }
