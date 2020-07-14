@@ -13,8 +13,18 @@ const users = `CREATE TABLE IF NOT EXISTS
         updated_at TIMESTAMP NOT NULL
       )`;
 
-const tableQueries = [users];
-const tableNames = ["users"];
+const protectedThings = `CREATE TABLE IF NOT EXISTS
+      protected_things(
+        id UUID PRIMARY KEY,
+        text VARCHAR(2000),
+        user_id UUID NOT NULL,
+        FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE, 
+        created_at TIMESTAMP NOT NULL,
+        updated_at TIMESTAMP NOT NULL
+      )`;
+
+const tableQueries = [users, protectedThings];
+const tableNames = ["users", "protected_things"];
 
 async function createAllTables() {
   await asyncForEach(tableQueries, async queryText => {
