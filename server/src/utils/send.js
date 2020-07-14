@@ -5,9 +5,15 @@ export default function send(req, res) {
 
   if (authCookie) {
     if (authCookie.value === "remove") {
-      res.clearCookie(authCookie.name, { httpOnly: true }); // TO DO: ADD SECURE HERE IN PROD (ie https)
+      res.clearCookie(authCookie.name, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production" ? true : false
+      });
     } else {
-      res.cookie(authCookie.name, authCookie.value, { httpOnly: true }); // TO DO: ADD SECURE HERE IN PROD (ie https)
+      res.cookie(authCookie.name, authCookie.value, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production" ? true : false
+      });
     }
   }
 

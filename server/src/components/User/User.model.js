@@ -42,6 +42,6 @@ const findOneByEmail = async email => {
 };
 
 export const User = {
-  create: create,
-  findOneByEmail: findOneByEmail
+  create,
+  findOneByEmail
 };

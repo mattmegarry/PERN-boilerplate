@@ -109,8 +109,21 @@ body {
   box-shadow: 0.5rem 1rem 1.8rem lightskyblue;
 }
 
+.info {
+  border-radius: 0.4rem;
+  padding: 1rem 2rem 2rem 1rem;
+  background-color: aliceblue;
+  box-shadow: 0.5rem 1rem 1.8rem lightskyblue;
+}
+
 @media (min-width: 641px) {
-  .item {
-    margin: 0 10vw;
+  .item,
+  .info {
+    margin: 0 2vw;
+  }
+
+  .horizontal {
+    display: flex;
+    flex-direction: row;
   }
 }

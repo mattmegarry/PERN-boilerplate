@@ -11,37 +11,51 @@ import {
 export const login = async (req, res, next) => {
   const { email, password } = req.body;
   // TO DO: SKIPPING INPUT VALIDATION - JUST PROTOTYPING!
+
   try {
     const user = await User.findOneByEmail(email);
-    const passwordIsCorrect = await passwordMatches(
-      password,
-      user.passwordDigest
-    );
-
-    if (!user.emailVerified) {
-      res.locals.data = { message: "Please verify your email address" };
-      next();
-    }
-
-    if (user && passwordIsCorrect) {
-      const jwtForCookie = await issueJWTForCookie(user.email);
-      const jwtForLocalStorage = await issueJWTForLocalStorage(user.email);
-
-      res.locals = {
-        data: {
-          message: "Login success",
-          token: jwtForLocalStorage
-        },
-        status: 200,
-        authCookie: {
-          name: "auth",
-          value: jwtForCookie
-        }
-      };
-    } else {
-      res.locals.data = {
+    const rejectionResponse = {
+      status: 401,
+      data: {
         message: "Username password combination doesn't match"
-      };
+      }
+    };
+
+    if (user) {
+      const { passwordDigest, emailVerified } = user;
+
+      const passwordIsCorrect = await passwordMatches(password, passwordDigest);
+
+      if (!emailVerified) {
+        res.locals = {
+          status: 401,
+          data: { message: "Please verify your email address" }
+        };
+        next();
+      }
+
+      if (user && passwordIsCorrect) {
+        const jwtForCookie = await issueJWTForCookie(user.email);
+        const jwtForLocalStorage = await issueJWTForLocalStorage(user.email);
+
+        res.locals = {
+          data: {
+            email: user.email,
+            message: "Login success",
+            token: jwtForLocalStorage
+          },
+          status: 200,
+          authCookie: {
+            name: "auth",
+            value: jwtForCookie
+          }
+        };
+      } else {
+        res.locals = rejectionResponse;
+        next();
+      }
+    } else {
+      res.locals = rejectionResponse;
       next();
     }
   } catch (err) {
@@ -58,7 +72,7 @@ export const signout = async (req, res, next) => {
       token: "remove"
     },
     status: 200,
-    myCookie: {
+    authCookie: {
       name: "auth",
       value: "remove"
     }
