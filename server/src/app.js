@@ -11,6 +11,7 @@ import cors from "cors";
 
 import Respond from "./utils/responses";
 import apiRouter from "./components/index";
+import send from "./utils/send";
 
 const app = express();
 
@@ -35,13 +36,13 @@ app.use("/", apiRouter);
 
 app.use((req, res, next) => {
   res.locals = Respond.notFound();
-  next();
+  send(req, res);
 });
 
 app.use((err, req, res, next) => {
   console.error(err);
   res.locals = Respond.opaqueError();
-  next();
+  send(req, res);
 });
 
 export default app;
