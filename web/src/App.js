@@ -16,7 +16,7 @@ function App() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     const email = localStorage.getItem("email");
-    if (token.length > 9 && email) {
+    if (email && token && token.length > 9) {
       // i.e. token is not "undefined" or "null"
       setEmail(email);
       setLoggedIn(true);
