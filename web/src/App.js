@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 
 import Login from "./components/Login";
+import Signout from "./components/Signout";
 import { openRequest } from "./utils/http";
 
 function App() {
@@ -48,12 +49,24 @@ function App() {
       });
   };
 
+  const clearState = () => {
+    setLoggedIn(false);
+    setEmail("");
+  };
+
   return (
     <Router>
       <div className="header-outer">
         <div className="header">
           <h1>My App</h1>
-          {loggedIn ? <p>{email}</p> : <NavLink to="/login">Login</NavLink>}
+          {loggedIn ? (
+            <div className="user-signout">
+              <Signout clearState={clearState} />
+              <p>{email}</p>
+            </div>
+          ) : (
+            <NavLink to="/login">Login</NavLink>
+          )}
         </div>
       </div>
       <div className="main-outer">

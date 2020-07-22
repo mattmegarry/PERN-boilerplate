@@ -45,3 +45,9 @@ export const login = async (req, res, next) => {
   }
   next();
 };
+
+export const signout = async (req, res, next) => {
+  res.clearCookie("auth", cookieConfig());
+  res.locals = Respond.success();
+  next();
+};

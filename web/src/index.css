@@ -21,14 +21,23 @@ code {
   font-weight: 700;
 }
 
-@media (min-width: 641px) {
-  .header {
-    font-size: 3rem;
-  }
+.signout-message {
+  color: red;
+  font-size: 0.5rem;
 }
 
 .footer {
   font-size: 0.8rem;
+}
+
+@media (min-width: 641px) {
+  .header {
+    font-size: 3rem;
+  }
+
+  .signout-message {
+    font-size: 0.8rem;
+  }
 }
 
 /* --- LAYOUT & BACKGROUNDS --- */
