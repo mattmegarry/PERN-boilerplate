@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -13,22 +13,39 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [email, setEmail] = useState("");
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const email = localStorage.getItem("email");
+    if (token.length > 9 && email) {
+      // i.e. token is not "undefined" or "null"
+      setEmail(email);
+      setLoggedIn(true);
+    } else {
+      localStorage.clear();
+    }
+  }, []);
+
   const login = (body, callback) => {
     openRequest("/users/auth/login", "POST", body)
       .then(res => {
         if (res && res.status === 200) {
-          localStorage.setItem("token", res.data.token);
+          const { token, email } = res.data;
+          localStorage.setItem("token", token);
+          localStorage.setItem("email", email);
           setLoggedIn(true);
-          setEmail(res.data.email);
+          setEmail(email);
           callback(true, null);
         } else {
-          localStorage.removeItem("token");
+          const { message } = res.data;
+          localStorage.clear();
           setLoggedIn(false);
           setEmail("");
-          callback(false, res.data.message);
+          callback(false, message);
         }
       })
-      .catch();
+      .catch(() => {
+        console.log("An error occurred.");
+      });
   };
 
   return (
