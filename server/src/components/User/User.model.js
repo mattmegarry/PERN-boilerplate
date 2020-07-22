@@ -27,7 +27,21 @@ const create = async (email, passwordHash) => {
   }
 };
 
-const findOneByEmail = async email => {
+const findOneByEmailWithoutPassword = async email => {
+  const query = `
+  SELECT id, email, email_verified, created_at, updated_at FROM users WHERE email = $1
+  `;
+
+  const values = [email];
+  try {
+    const user = await db.queryReturningOne(query, values);
+    return user;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const findOneByEmailIncludingPassword = async email => {
   const query = `
   SELECT * FROM users WHERE email = $1
   `;
@@ -43,5 +57,6 @@ const findOneByEmail = async email => {
 
 export const User = {
   create,
-  findOneByEmail
+  findOneByEmailWithoutPassword,
+  findOneByEmailIncludingPassword
 };

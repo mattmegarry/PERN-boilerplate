@@ -2,6 +2,7 @@
 
 import { User } from "./User.model";
 import { hashSaltPassword } from "../../utils/auth";
+import Respond from "../../utils/responses";
 
 export const createUser = async (req, res, next) => {
   const { email, password } = req.body;
@@ -10,13 +11,10 @@ export const createUser = async (req, res, next) => {
   try {
     const passwordDigest = await hashSaltPassword(password);
     await User.create(email, passwordDigest);
-    res.locals.data = {
-      message:
-        "Success! Please check your email and click the verification link."
-    };
+    res.locals.data = Respond.emailNeedsVerification();
   } catch (err) {
     console.log(err);
-    res.locals.data = { message: "Something went wrong." };
+    res.locals = Respond.opaqueError();
   }
   next();
 };

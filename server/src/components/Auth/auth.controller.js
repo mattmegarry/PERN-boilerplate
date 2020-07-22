@@ -4,79 +4,44 @@ import { User } from "../User/User.model";
 
 import {
   passwordMatches,
+  issueJWTForLocalStorage,
   issueJWTForCookie,
-  issueJWTForLocalStorage
+  cookieConfig
 } from "../../utils/auth";
+
+import Respond from "../../utils/responses";
 
 export const login = async (req, res, next) => {
   const { email, password } = req.body;
   // TO DO: SKIPPING INPUT VALIDATION - JUST PROTOTYPING!
 
   try {
-    const user = await User.findOneByEmail(email);
-    const rejectionResponse = {
-      status: 401,
-      data: {
-        message: "Username password combination doesn't match"
-      }
-    };
-
+    const user = await User.findOneByEmailIncludingPassword(email);
     if (user) {
-      const { passwordDigest, emailVerified } = user;
-
+      const { passwordDigest, emailVerified, ...userSafe } = user;
       const passwordIsCorrect = await passwordMatches(password, passwordDigest);
 
       if (!emailVerified) {
-        res.locals = {
-          status: 401,
-          data: { message: "Please verify your email address" }
-        };
+        res.locals = Respond.emailNeedsVerification();
         next();
       }
 
       if (user && passwordIsCorrect) {
-        const jwtForCookie = await issueJWTForCookie(user.email);
-        const jwtForLocalStorage = await issueJWTForLocalStorage(user.email);
-
-        res.locals = {
-          data: {
-            email: user.email,
-            message: "Login success",
-            token: jwtForLocalStorage
-          },
-          status: 200,
-          authCookie: {
-            name: "auth",
-            value: jwtForCookie
-          }
-        };
+        res.locals = Respond.success(userSafe);
+        res.locals.data.token = await issueJWTForLocalStorage(userSafe.email);
+        const cookie = await issueJWTForCookie(userSafe.email);
+        res.cookie("auth", cookie, cookieConfig());
       } else {
-        res.locals = rejectionResponse;
+        res.locals = Respond.loginRejected();
         next();
       }
     } else {
-      res.locals = rejectionResponse;
+      res.locals = Respond.loginRejected();
       next();
     }
   } catch (err) {
     console.log(err);
-    res.locals.data = { message: "Something went wrong." };
+    res.locals = Respond.opaqueError();
   }
   next();
-};
-
-export const signout = async (req, res, next) => {
-  res.locals = {
-    data: {
-      message: "Signout success",
-      token: "remove"
-    },
-    status: 200,
-    authCookie: {
-      name: "auth",
-      value: "remove"
-    }
-  };
-
-  return next();
 };
