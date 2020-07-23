@@ -15,3 +15,18 @@ export const getMany = async (req, res, next) => {
   }
   next();
 };
+
+export const createAndGetMany = async (req, res, next) => {
+  const userId = req.trustedUserId;
+  const { text } = req.body;
+
+  try {
+    await ProtectedThing.create(userId, text);
+    const protectedThings = await ProtectedThing.getManyByUserId(userId);
+    res.locals = Respond.success(protectedThings);
+  } catch (err) {
+    console.log(err);
+    res.locals = opaqueError();
+  }
+  next();
+};

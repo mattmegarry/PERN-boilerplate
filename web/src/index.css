@@ -131,14 +131,32 @@ body {
   margin-bottom: 2rem;
 }
 
+div.create-protected-thing {
+  border: solid 1px black;
+  border-radius: 1rem;
+  padding: 1rem 2rem 2rem 1rem;
+  background-color: aliceblue;
+  box-shadow: 0.5rem 1rem 1.8rem lightskyblue;
+  margin-bottom: 1rem;
+}
+
 .signout {
   float: right;
   margin-bottom: 0.5rem;
 }
 
+textarea.create-protected-thing {
+  width: 100%;
+}
+
+input.create-protected-thing {
+  float: right;
+}
+
 @media (min-width: 641px) {
   .item,
-  .info {
+  .info,
+  div.create-protected-thing {
     margin: 0 2vw 2rem;
   }
 

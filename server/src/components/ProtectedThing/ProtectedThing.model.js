@@ -24,7 +24,7 @@ const create = async (userId, text) => {
 };
 
 const getManyByUserId = async userId => {
-  const query = `SELECT * FROM protected_things WHERE user_id = $1`;
+  const query = `SELECT * FROM protected_things WHERE user_id = $1 ORDER BY created_at DESC`;
 
   const values = [userId];
 
