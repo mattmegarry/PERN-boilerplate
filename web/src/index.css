@@ -26,6 +26,10 @@ code {
   font-size: 0.5rem;
 }
 
+.user-signout {
+  font-size: 1rem;
+}
+
 .footer {
   font-size: 0.8rem;
 }
@@ -70,6 +74,7 @@ body {
 .header-outer {
   height: 15vh;
   background-color: aliceblue;
+  margin-bottom: 1rem;
 }
 
 .main-outer {
@@ -97,7 +102,6 @@ body {
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
 }
 
 .footer {
@@ -116,6 +120,7 @@ body {
   padding: 1rem 2rem 2rem 1rem;
   background-color: aliceblue;
   box-shadow: 0.5rem 1rem 1.8rem lightskyblue;
+  margin-bottom: 1rem;
 }
 
 .item {
@@ -123,12 +128,18 @@ body {
   padding: 1rem 2rem 2rem 1rem;
   background-color: aliceblue;
   box-shadow: 0.5rem 1rem 1.8rem lightskyblue;
+  margin-bottom: 2rem;
+}
+
+.signout {
+  float: right;
+  margin-bottom: 0.5rem;
 }
 
 @media (min-width: 641px) {
   .item,
   .info {
-    margin: 0 2vw;
+    margin: 0 2vw 2rem;
   }
 
   .horizontal {

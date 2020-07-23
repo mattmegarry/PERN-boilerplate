@@ -28,7 +28,9 @@ const Signout = props => {
     <Redirect to="/" />
   ) : (
     <>
-      <button onClick={handleClick}>Signout</button>
+      <div className="signout">
+        <button onClick={handleClick}>Signout</button>
+      </div>
       <p className="signout-message">{message}</p>
     </>
   );
