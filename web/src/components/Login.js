@@ -31,29 +31,27 @@ const Login = props => {
   if (redirectToReferrer) return <Redirect to={from} />;
 
   return (
-    <div className="main">
-      <fieldset className="signup-fieldset">
-        <legend>Login</legend>
-        <form className="signup-form" onSubmit={event => handleSubmit(event)}>
-          <input
-            type="text"
-            name="email"
-            value={email}
-            onChange={event => setEmail(event.target.value)}
-            placeholder="Email"
-          />
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={event => setPassword(event.target.value)}
-            placeholder="Password"
-          />
-          <input type="submit" value="Submit" />
-        </form>
-        <p>{message}</p>
-      </fieldset>
-    </div>
+    <fieldset className="signup-fieldset">
+      <legend>Login</legend>
+      <form className="signup-form" onSubmit={event => handleSubmit(event)}>
+        <input
+          type="text"
+          name="email"
+          value={email}
+          onChange={event => setEmail(event.target.value)}
+          placeholder="Email"
+        />
+        <input
+          type="password"
+          name="password"
+          value={password}
+          onChange={event => setPassword(event.target.value)}
+          placeholder="Password"
+        />
+        <input type="submit" value="Submit" />
+      </form>
+      <p>{message}</p>
+    </fieldset>
   );
 };
 

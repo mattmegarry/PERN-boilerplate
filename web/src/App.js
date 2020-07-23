@@ -8,6 +8,7 @@ import {
 
 import Login from "./components/Login";
 import Signout from "./components/Signout";
+import Home from "./components/Home";
 import { openRequest } from "./utils/http";
 
 function App() {
@@ -70,28 +71,24 @@ function App() {
         </div>
       </div>
       <div className="main-outer">
-        <Switch>
-          <Route
-            exact
-            path="/"
-            component={() => (
-              <div className="main">
-                <div className="info">Item</div>
-                <div className="item">Item</div>
-                <div className="item">Item</div>
-                <div className="item">Item</div>
-                <div className="item">Item</div>
-              </div>
-            )}
-          />
-          <Route
-            exact
-            path="/login"
-            render={props => (
-              <Login {...props} loggedIn={loggedIn} login={login} />
-            )}
-          />
-        </Switch>
+        <div className="main">
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={props => (
+                <Home {...props} loggedIn={loggedIn} clearState={clearState} />
+              )}
+            />
+            <Route
+              exact
+              path="/login"
+              render={props => (
+                <Login {...props} loggedIn={loggedIn} login={login} />
+              )}
+            />
+          </Switch>
+        </div>
       </div>
       <div className="footer-outer">
         <div className="footer">

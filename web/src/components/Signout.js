@@ -24,16 +24,12 @@ const Signout = props => {
     }
   };
 
-  return (
+  return signoutSuccess ? (
+    <Redirect to="/" />
+  ) : (
     <>
-      {signoutSuccess ? (
-        <Redirect to="/" />
-      ) : (
-        <>
-          <button onClick={handleClick}>Signout</button>
-          <p className="signout-message">{message}</p>
-        </>
-      )}
+      <button onClick={handleClick}>Signout</button>
+      <p className="signout-message">{message}</p>
     </>
   );
 };

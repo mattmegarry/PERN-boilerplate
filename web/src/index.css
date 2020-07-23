@@ -110,7 +110,7 @@ body {
 
 /* --- COMPONENTS --- */
 
-.item {
+.info {
   border: solid 1px black;
   border-radius: 1rem;
   padding: 1rem 2rem 2rem 1rem;
@@ -118,7 +118,7 @@ body {
   box-shadow: 0.5rem 1rem 1.8rem lightskyblue;
 }
 
-.info {
+.item {
   border-radius: 0.4rem;
   padding: 1rem 2rem 2rem 1rem;
   background-color: aliceblue;

@@ -1,4 +1,4 @@
-import { send } from "./send";
+import send from "./send";
 
 const success = data => {
   const response = {
