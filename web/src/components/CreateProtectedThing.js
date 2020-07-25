@@ -1,8 +1,8 @@
 import React, { useState } from "react";
+import TextareaAutosize from "react-textarea-autosize";
 
 const CreateProtectedThing = props => {
   const { createProtectedThing } = props;
-
   const [text, setText] = useState("");
 
   const handleSubmit = event => {
@@ -22,7 +22,8 @@ const CreateProtectedThing = props => {
     <>
       <div className="create-protected-thing">
         <form onSubmit={event => handleSubmit(event)}>
-          <textarea
+          <TextareaAutosize
+            autoFocus
             className="create-protected-thing"
             value={text}
             onChange={event => setText(event.target.value)}
