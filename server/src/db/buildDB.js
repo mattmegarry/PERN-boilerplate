@@ -4,7 +4,7 @@ import db from "./index";
 import asyncForEach from "../utils/asyncForEach";
 import * as seedData from "./seedData.json";
 import { User } from "../components/User/User.model";
-import { ProtectedThing } from "../components/ProtectedThing/protectedThing.model";
+import { ProtectedThing } from "../components/ProtectedThing/ProtectedThing.model";
 import { hashSaltPassword } from "../utils/auth";
 
 const users = `CREATE TABLE IF NOT EXISTS
@@ -20,7 +20,7 @@ const users = `CREATE TABLE IF NOT EXISTS
 const protectedThings = `CREATE TABLE IF NOT EXISTS
       protected_things(
         id UUID PRIMARY KEY,
-        text VARCHAR(2000),
+        text VARCHAR(2000) NOT NULL,
         user_id UUID NOT NULL,
         FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE, 
         created_at TIMESTAMP NOT NULL,

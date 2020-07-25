@@ -10,9 +10,9 @@ const ProtectedThings = props => {
     const fetchProtectedThings = async () => {
       try {
         const res = await authRequest("/protected-things", "GET");
-        if (res.status === 401) {
+        if (res.status >= 400 && res.status < 600) {
           clearState();
-        } else {
+        } else if (res.status === 200) {
           const protectedThings = res.data || [];
           setProtectedThings(protectedThings);
         }
@@ -26,9 +26,9 @@ const ProtectedThings = props => {
   const createProtectedThing = async body => {
     try {
       const res = await authRequest("/protected-things/create", "POST", body);
-      if (res.status === 401) {
+      if (res.status >= 400 && res.status < 600) {
         clearState();
-      } else {
+      } else if (res.status === 200) {
         const protectedThings = res.data || [];
         setProtectedThings(protectedThings);
       }

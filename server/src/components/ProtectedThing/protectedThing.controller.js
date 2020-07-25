@@ -11,7 +11,7 @@ export const getMany = async (req, res, next) => {
     res.locals = Respond.success(protectedThings);
   } catch (err) {
     console.log(err);
-    res.locals = opaqueError();
+    res.locals = Respond.opaqueError();
   }
   next();
 };
@@ -21,12 +21,14 @@ export const createAndGetMany = async (req, res, next) => {
   const { text } = req.body;
 
   try {
-    await ProtectedThing.create(userId, text);
+    if (text) {
+      await ProtectedThing.create(userId, text);
+    }
     const protectedThings = await ProtectedThing.getManyByUserId(userId);
     res.locals = Respond.success(protectedThings);
   } catch (err) {
     console.log(err);
-    res.locals = opaqueError();
+    res.locals = Respond.opaqueError();
   }
   next();
 };
