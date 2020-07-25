@@ -129,6 +129,7 @@ body {
   background-color: aliceblue;
   box-shadow: 0.5rem 1rem 1.8rem lightskyblue;
   margin-bottom: 2rem;
+  white-space: pre-wrap;
 }
 
 div.create-protected-thing {
