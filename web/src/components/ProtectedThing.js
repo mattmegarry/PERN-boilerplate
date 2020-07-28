@@ -44,9 +44,6 @@ const ProtectedThing = props => {
           className="edit-protected-thing"
           value={newText}
           onChange={event => setNewText(event.target.value)}
-          onHeightChange={e => {
-            console.log("moo");
-          }}
         />
         <input
           className="save-edit-protected-thing"
