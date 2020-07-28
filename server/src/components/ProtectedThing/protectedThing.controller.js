@@ -49,3 +49,20 @@ export const updateOne = async (req, res, next) => {
   }
   next();
 };
+
+export const deleteOneAndGetMany = async (req, res, next) => {
+  const userId = req.trustedUserId;
+  const { id } = req.body;
+
+  try {
+    if (id) {
+      await ProtectedThing.deleteOne(id, userId);
+    }
+    const protectedThings = await ProtectedThing.getManyByUserId(userId);
+    res.locals = Respond.success(protectedThings);
+  } catch (err) {
+    console.log(err);
+    res.locals = Respond.opaqueError();
+  }
+  next();
+};

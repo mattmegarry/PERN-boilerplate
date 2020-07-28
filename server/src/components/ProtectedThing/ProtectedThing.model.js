@@ -51,8 +51,24 @@ const update = async (id, userId, text) => {
   }
 };
 
+const deleteOne = async (id, userId) => {
+  const query = `
+  DELETE FROM protected_things WHERE id = $1 AND user_id = $2 RETURNING *
+  `;
+
+  const values = [id, userId];
+
+  try {
+    const deletedProtectedThing = await db.queryReturningOne(query, values);
+    return deletedProtectedThing;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 export const ProtectedThing = {
   create,
   getManyByUserId,
-  update
+  update,
+  deleteOne
 };

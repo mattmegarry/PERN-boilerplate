@@ -25,6 +25,13 @@ const ProtectedThing = props => {
     await changeOneAndFetchProtectedThings(body, "/update");
   };
 
+  const deleteProtectedThing = async () => {
+    const body = { id };
+
+    handleInputMode(id);
+    await changeOneAndFetchProtectedThings(body, "/delete");
+  };
+
   const dispatchInputModeInstruction = () => {
     handleInputMode(id);
   };
@@ -45,11 +52,19 @@ const ProtectedThing = props => {
           value={newText}
           onChange={event => setNewText(event.target.value)}
         />
-        <input
-          className="save-edit-protected-thing"
-          type="submit"
-          value="Save"
-        />
+        <div className="protected-thing-control-buttons">
+          <input
+            className="delete"
+            type="button"
+            value="Delete"
+            onClick={deleteProtectedThing}
+          />
+          <input
+            className="save-edit-protected-thing"
+            type="submit"
+            value="Save"
+          />
+        </div>
       </form>
     </div>
   ) : (
