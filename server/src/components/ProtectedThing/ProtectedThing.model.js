@@ -36,7 +36,23 @@ const getManyByUserId = async userId => {
   }
 };
 
+const update = async (id, userId, text) => {
+  const query = `
+  UPDATE protected_things SET text = $1, updated_at = $2 WHERE id = $3 AND user_id = $4 RETURNING *
+  `;
+
+  const values = [text, moment(new Date()), id, userId];
+
+  try {
+    const protectedThing = await db.queryReturningOne(query, values);
+    return protectedThing;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 export const ProtectedThing = {
   create,
-  getManyByUserId
+  getManyByUserId,
+  update
 };

@@ -146,12 +146,22 @@ div.create-protected-thing {
   margin-bottom: 0.5rem;
 }
 
-textarea.create-protected-thing {
+textarea.create-protected-thing,
+textarea.edit-protected-thing {
   width: 100%;
 }
 
-input.create-protected-thing {
+input.create-protected-thing,
+input.save-edit-protected-thing {
   float: right;
+}
+
+div.cancel {
+  display: flex;
+}
+
+input.cancel {
+  margin-left: auto;
 }
 
 @media (min-width: 641px) {

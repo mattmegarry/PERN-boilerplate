@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { authRequest } from "../utils/http";
 import CreateProtectedThing from "./CreateProtectedThing";
+import ProtectedThing from "./ProtectedThing";
 
 const ProtectedThings = props => {
   const { clearState } = props;
   const [protectedThings, setProtectedThings] = useState([]);
+  const [whichThingIsInInputMode, setWhichThingIsInInputMode] = useState(null);
 
   useEffect(() => {
     const fetchProtectedThings = async () => {
@@ -23,9 +25,9 @@ const ProtectedThings = props => {
     fetchProtectedThings();
   }, [clearState]);
 
-  const createProtectedThing = async body => {
+  const changeOneAndFetchProtectedThings = async (body, path) => {
     try {
-      const res = await authRequest("/protected-things/create", "POST", body);
+      const res = await authRequest("/protected-things" + path, "POST", body);
       if (res.status >= 400 && res.status < 600) {
         clearState();
       } else if (res.status === 200) {
@@ -37,15 +39,25 @@ const ProtectedThings = props => {
     }
   };
 
+  const handleInputMode = id => {
+    setWhichThingIsInInputMode(prevState => (prevState === id ? null : id));
+  };
+
   return (
     <>
-      <CreateProtectedThing createProtectedThing={createProtectedThing} />
-      {protectedThings.map(thing => {
-        const { id, text } = thing || "";
+      <CreateProtectedThing
+        changeOneAndFetchProtectedThings={changeOneAndFetchProtectedThings}
+      />
+      {protectedThings.map(protectedThing => {
+        const { id } = protectedThing || "";
         return (
-          <div key={id} className="item">
-            {text}
-          </div>
+          <ProtectedThing
+            key={id}
+            protectedThing={protectedThing}
+            inputMode={whichThingIsInInputMode === id ? true : false}
+            handleInputMode={handleInputMode}
+            changeOneAndFetchProtectedThings={changeOneAndFetchProtectedThings}
+          />
         );
       })}
     </>

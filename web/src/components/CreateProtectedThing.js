@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 
 const CreateProtectedThing = props => {
-  const { createProtectedThing } = props;
+  const { changeOneAndFetchProtectedThings } = props;
   const [text, setText] = useState("");
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     if (event) {
       event.preventDefault();
     }
@@ -14,8 +14,10 @@ const CreateProtectedThing = props => {
       text
     };
 
-    createProtectedThing(body);
-    setText("");
+    try {
+      await changeOneAndFetchProtectedThings(body, "/create");
+      setText("");
+    } catch (e) {}
   };
 
   return (
